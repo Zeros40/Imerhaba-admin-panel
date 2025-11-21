@@ -21,6 +21,34 @@ const TIER2_OUTPUTS = [
   { id: 'BUSINESS_PLAN', label: 'Business Plan', icon: '📊' },
   { id: 'COMPETITOR_ANALYSIS', label: 'Competitor Analysis', icon: '🔍' },
   { id: 'PITCH_DECK_OUTLINE', label: 'Pitch Deck Outline', icon: '🎤' },
+  { id: 'PRODUCT_SHEET', label: 'Product Sheet', icon: '📑' },
+  { id: 'SERVICES_PRESENTATION', label: 'Services Presentation', icon: '🎨' },
+  { id: 'ROI_BREAKDOWN', label: 'ROI Breakdown', icon: '💹' },
+  { id: 'INVESTMENT_SUMMARY', label: 'Investment Summary', icon: '💼' },
+  { id: 'POSITIONING_MAP', label: 'Positioning Map', icon: '🗺️' },
+  { id: 'CALENDAR_30DAY', label: '30-Day Marketing Calendar', icon: '📅' },
+]
+
+const TIER3_OUTPUTS = [
+  { id: 'FULL_PITCH_DECK', label: 'Full Pitch Deck', icon: '🎯' },
+  { id: 'INVESTOR_PROPOSAL', label: 'Investor Proposal', icon: '🏢' },
+  { id: 'BRAND_STRATEGY', label: 'Brand Strategy', icon: '🎭' },
+  { id: 'SIX_MONTH_PLAN', label: '6-Month Growth Plan', icon: '📈' },
+  { id: 'WEBSITE_REWRITE', label: 'Complete Website Rewrite', icon: '💻' },
+  { id: 'SEO_AUDIT', label: 'SEO Audit Report', icon: '🔎' },
+  { id: 'TECHNICAL_FLAGS', label: 'Technical Issues Report', icon: '⚠️' },
+  { id: 'MARKET_MAP', label: 'Market Mapping', icon: '🌐' },
+  { id: 'PRICING_BENCHMARK', label: 'Pricing Analysis', icon: '💰' },
+  { id: 'CONTRACT', label: 'Service Contract Template', icon: '📜' },
+  { id: 'INVOICE', label: 'Invoice Template', icon: '🧾' },
+  { id: 'SOP', label: 'Standard Operating Procedures', icon: '📋' },
+  { id: 'AUTOMATION_FLOW', label: 'Automation Workflow', icon: '⚙️' },
+  { id: 'CRM_WORKFLOW', label: 'CRM Workflow Design', icon: '🤝' },
+  { id: 'MULTI_LANGUAGE_PACK', label: 'Multilingual Strategy', icon: '🌍' },
+  { id: 'ADS_PACK', label: 'Ads Strategy Pack', icon: '📢' },
+  { id: 'SWOT', label: 'SWOT Analysis', icon: '📌' },
+  { id: 'PESTEL', label: 'PESTEL Analysis', icon: '🔍' },
+  { id: 'RISK_ANALYSIS', label: 'Risk Analysis', icon: '⚡' },
 ]
 
 export default function Outputs() {
@@ -90,8 +118,8 @@ export default function Outputs() {
 
         {/* Tier 2 */}
         <div className="mb-12 opacity-60">
-          <h2 className="text-2xl font-bold mb-6 text-gray-500">Tier 2 - Coming Soon</h2>
-          <p className="text-gray-500 mb-6">Upgrade your plan to unlock these additional outputs</p>
+          <h2 className="text-2xl font-bold mb-6 text-gray-500">Tier 2 - Business & Marketing (Coming Soon)</h2>
+          <p className="text-gray-500 mb-6">Upgrade your plan to unlock these additional 12 outputs</p>
           <div className="grid md:grid-cols-3 gap-4">
             {TIER2_OUTPUTS.map((output) => (
               <div
@@ -99,7 +127,24 @@ export default function Outputs() {
                 className="flex items-center p-4 border-2 border-gray-200 rounded-lg bg-gray-50"
               >
                 <span className="text-lg mr-2">{output.icon}</span>
-                <span className="font-medium text-gray-500">{output.label}</span>
+                <span className="font-medium text-gray-500 text-sm">{output.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tier 3 */}
+        <div className="mb-12 opacity-50">
+          <h2 className="text-2xl font-bold mb-6 text-gray-400">Tier 3 - Enterprise Suite (Coming Soon)</h2>
+          <p className="text-gray-400 mb-6">Premium plan with 19 additional enterprise-grade outputs</p>
+          <div className="grid md:grid-cols-3 gap-4">
+            {TIER3_OUTPUTS.map((output) => (
+              <div
+                key={output.id}
+                className="flex items-center p-4 border-2 border-gray-200 rounded-lg bg-gray-50"
+              >
+                <span className="text-lg mr-2">{output.icon}</span>
+                <span className="font-medium text-gray-400 text-sm">{output.label}</span>
               </div>
             ))}
           </div>
