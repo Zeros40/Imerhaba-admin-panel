@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  fullName  String?
+  role      UserRole   @default(USER)
+  plan      Plan       @default(TIER1)
+  projects  Project[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([email])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  RESELLER
+}
+
+enum Plan {
+  TIER1
+  TIER2
+  TIER3
+  TIER4
+}
+
+model Project {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  websiteUrl      String
+  businessProfile BusinessProfile?
+  outputs         Output[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model BusinessProfile {
+  id                    String   @id @default(cuid())
+  projectId             String   @unique
+  project               Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  businessName          String?
+  industry              String?
+  description           String?
+  mainProduct           String?
+  secondaryProducts     String[]
+  services              String[]
+  pricing               String?
+  guarantees            String[]
+  keyBenefits           String[]
+  features              String[]
+  brandTone             String?
+  brandColors           String[]
+  ctaPatterns           String[]
+  targetAudience        String?
+  painPoints            String[]
+  testimonials          String[]
+  offers                String[]
+  serviceAreas          String[]
+  socialLinks           String[]
+  contactInfo           String?
+  competitors           String[]
+  seoKeywords           String[]
+  metaTitles            String[]
+  metaDescriptions      String[]
+  googleSearchIssues    String[]
+  layoutStructure       String?
+  mistakes              String[]
+  opportunities         String[]
+  rawExtraction         Json?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@index([projectId])
+}
+
+model Output {
+  id              String   @id @default(cuid())
+  projectId       String
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type            OutputType
+  title           String
+  content         String
+  language        String   @default("en")
+  format          String   @default("text")
+  tier            Plan
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([type])
+}
+
+enum OutputType {
+  LANDING_PAGE_SHORT
+  LANDING_PAGE_LONG
+  WEBSITE_4PAGE
+  HERO_SECTION
+  PAIN_SOLUTION_BLOCK
+  FAQ
+  SOCIAL_POST
+  PERSONA
+  PRODUCT_DESCRIPTION
+  BRAND_BASICS
+  PROPOSAL
+  WHATSAPP_SCRIPT
+  EMAIL_SEQUENCE
+  PRODUCT_SHEET
+  SERVICES_PRESENTATION
+  BUSINESS_PLAN
+  ROI_BREAKDOWN
+  INVESTMENT_SUMMARY
+  PITCH_DECK_OUTLINE
+  COMPETITOR_ANALYSIS
+  POSITIONING_MAP
+  CALENDAR_30DAY
+  SEO_PACK
+  METADATA
+  MISTAKES_REPORT
+  JOURNEY_MAP
+  FUNNEL_PACK
+  FULL_PITCH_DECK
+  INVESTOR_PROPOSAL
+  BRAND_STRATEGY
+  SIX_MONTH_PLAN
+  MULTI_PERSONAS
+  WEBSITE_REWRITE
+  SEO_AUDIT
+  TECHNICAL_FLAGS
+  MARKET_MAP
+  PRICING_BENCHMARK
+  CONTRACT
+  INVOICE
+  SOP
+  AUTOMATION_FLOW
+  CRM_WORKFLOW
+  MULTI_LANGUAGE_PACK
+  ADS_PACK
+  SWOT
+  PESTEL
+  RISK_ANALYSIS
+  AUDIT_REPORT
+  DESIGN_BRIEF
+}
+
+model Translation {
+  id        String   @id @default(cuid())
+  key       String
+  en        String?
+  ar        String?
+  bs        String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([key])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String
+  details   Json?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
