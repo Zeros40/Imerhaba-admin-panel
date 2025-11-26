@@ -9,10 +9,15 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# 1) Internal map: /page or /page/ -> /page.php (if such PHP file exists)
+# 1) Route API requests to api.php
+RewriteRule ^api/ - [L]
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^(.*)$ api.php [QSA,L]
+
+# 2) Internal map: /page or /page/ -> /page.php (if such PHP file exists)
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.+?)/?$ $1.php [L]
 
-# 2) Optional: strip trailing slash for non-directories (keeps .php links working)
+# 3) Optional: strip trailing slash for non-directories (keeps .php links working)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)/$ $1 [R=301,L]
